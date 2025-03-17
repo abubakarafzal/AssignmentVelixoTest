@@ -37,8 +37,8 @@ jobs:
       # Step to run tests with qa as environment variable similarly we can define qa|dev|qaApi|devApi
       - name: Run Playwright tests
         env:
-          EXCEL_USERNAME: ${{ secrets.EXCEL_USERNAME }}
-          EXCEL_PASSWORD: ${{ secrets.EXCEL_PASSWORD }}
+          EXCEL_USERNAME: ${{ vars.EXCEL_USERNAME }}
+          EXCEL_PASSWORD: ${{ vars.EXCEL_PASSWORD }}
         run: npm run test:qa
 
       # Step to wait for the job to complete
