@@ -67,7 +67,7 @@ jobs:
 
       # Step to upload artifact
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: html-report
           path: html-report.zip
@@ -79,4 +79,3 @@ jobs:
         id: artifact_link
         run: echo "::set-output name=artifact_url::https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
         if: always()
-
