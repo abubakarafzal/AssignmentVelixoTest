@@ -48,31 +48,23 @@ jobs:
         # This step should always run, even if previous steps fail
         if: always()
 
-      # Check if HTML report exists
-      - name: Check if HTML report exists
-        run: |
-          if [ -d "html-report" ]; then
-            echo "HTML report exists."
-          else
-            echo "HTML report does not exist. Exiting..."
-            exit 1
-          fi
-        if: always()
-
-      # Step to zip html-report folder
-      - name: Zip HTML report
-        run: zip -r html-report.zip html-report
-        # This step should always run, even if previous steps fail
-        if: always()
-
       # Step to upload artifact
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: html-report
-          path: html-report.zip
+          name: playwright-report
+          path: playwright-report/
           if-no-files-found: error
         if: always()
+
+      # Step to attach video artifact if an error occurs
+      - name: Attach video artifact
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: error-videos
+          path: videos/
+          if-no-files-found: error
 
       # Step to generate artifact link
       - name: Generate artifact link
