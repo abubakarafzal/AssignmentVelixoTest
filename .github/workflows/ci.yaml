@@ -58,14 +58,6 @@ jobs:
           if-no-files-found: error
         if: always()
 
-      # Step to attach video artifact if an error occurs
-      - name: Attach video artifact
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: error-videos
-          path: videos/
-          if-no-files-found: error
 
       # Step to generate artifact link
       - name: Generate artifact link
