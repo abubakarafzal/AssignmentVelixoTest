@@ -40,7 +40,7 @@ jobs:
         env:
           EXCEL_USERNAME: ${{ vars.EXCEL_USERNAME }}
           EXCEL_PASSWORD: ${{ vars.EXCEL_PASSWORD }}
-        run: npm run test:qa:headed
+        run: npm run test:qa
 
       # Step to wait for the job to complete
       - name: Wait for job completion
