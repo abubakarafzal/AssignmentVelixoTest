@@ -1,0 +1,7 @@
+.idea
+playwright-report/
+package-lock.json
+*-report
+*.log
+test-results
+node_modules/

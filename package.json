@@ -1,0 +1,24 @@
+{
+  "name": "abubakar-task2-velixo",
+  "version": "1.0.0",
+  "description": "A project for automating Excel tasks using Playwright and TypeScript.",
+  "scripts": {
+    "format": "prettier --write \"src/**/*.{js,ts,json,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,ts,json,css,md}\"",
+    "test:headed": "npx playwright test --headed",
+    "test:ui": "npx playwright test --ui",
+    "test:qa": "ENV=qa npx playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.51.0",
+    "@types/node": "^22.9.1",
+    "typescript": "^5.5.3",
+    "prettier": "^3.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  }
+}
