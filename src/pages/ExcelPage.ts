@@ -21,7 +21,7 @@ export class ExcelPage {
   };
 
   async createBlankWorkbook(): Promise<Page> {
-    const DEFAULT_TIMEOUT = 30000;
+    const DEFAULT_TIMEOUT = 60000;
 
     const [newPage] = await Promise.all([
       this.page.context().waitForEvent("page"),
@@ -57,6 +57,8 @@ export class ExcelPage {
       this.excelLocators.cellInputSelector,
       DEFAULT_TIMEOUT,
     );
+    await newExcelPage.waitForTimeout(1000);
+
     await fillField(
       iframe,
       this.excelLocators.cellInputSelector,
