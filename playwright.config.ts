@@ -22,7 +22,7 @@ export default defineConfig({
   use: {
     baseURL,
     browserName,
-    headless,
+    headless: headless,
     video: 'retain-on-failure',
     screenshot: 'only-on-failure',
     permissions: ["clipboard-read"],
