@@ -19,12 +19,13 @@ let page: Page;
 let loginPage: LoginPage;
 let excelPage: ExcelPage;
 let newExcelPage: Page;
-
-const username =
-  config.credentials.username?.trim() || process.env.EXCEL_USERNAME;
-const password =
-  config.credentials.password?.trim() || process.env.EXCEL_PASSWORD;
-
+//
+// const username =
+//   config.credentials.username?.trim() || process.env.EXCEL_USERNAME;
+// const password =
+//   config.credentials.password?.trim() || process.env.EXCEL_PASSWORD;
+const username = process.env.EXCEL_USERNAME;
+const password = process.env.EXCEL_PASSWORD;
 if (!username || !password) {
   throw new Error(
     'Username or password is not defined. Please check your configuration and environment variables.',
