@@ -35,11 +35,11 @@ jobs:
         run: npx playwright install chrome
 
       # Step to run tests with qa as environment variable similarly we can define qa|dev|qaApi|devApi
-      - name: Run tests
-        run: npm run test:qa
+      - name: Run Playwright tests
         env:
           EXCEL_USERNAME: ${{ secrets.EXCEL_USERNAME }}
           EXCEL_PASSWORD: ${{ secrets.EXCEL_PASSWORD }}
+        run: npm run test:qa
 
       # Step to wait for the job to complete
       - name: Wait for job completion
