@@ -1,11 +1,11 @@
-import { expect, Page } from '@playwright/test';
+import { expect, Page } from "@playwright/test";
 import {
   isElementVisible,
   fillField,
   hasPageLoaded,
   clickElement,
   typeText,
-} from '../utils/helper';
+} from "../utils/helper";
 
 export class ExcelPage {
   constructor(private page: Page) {}
@@ -15,16 +15,16 @@ export class ExcelPage {
     applicationContainer: 'div[id="applicationOuterContainer"]',
     bars: 'div[id="AdditionalBars"]',
     cellInputSelectorwrapper: 'div[id="FormulaBar-NameBoxwrapper"]',
-    cellInputSelector: 'input#FormulaBar-NameBox-input',
-    formulaInputSelector: '#formulaBarTextDivId',
-    autoFontSize: '#FontSize-input',
+    cellInputSelector: "input#FormulaBar-NameBox-input",
+    formulaInputSelector: "#formulaBarTextDivId",
+    autoFontSize: "#FontSize-input",
   };
 
   async createBlankWorkbook(): Promise<Page> {
     const DEFAULT_TIMEOUT = 30000;
 
     const [newPage] = await Promise.all([
-      this.page.context().waitForEvent('page'),
+      this.page.context().waitForEvent("page"),
       clickElement(
         this.page,
         this.excelLocators.createBlankWorkbookButton,
@@ -33,7 +33,7 @@ export class ExcelPage {
     ]);
 
     if (!(await hasPageLoaded(newPage))) {
-      throw new Error('The new Excel page did not load correctly');
+      throw new Error("The new Excel page did not load correctly");
     }
 
     return newPage;
@@ -45,7 +45,7 @@ export class ExcelPage {
     formula: string,
   ): Promise<void> {
     const DEFAULT_TIMEOUT = 10000;
-    const iframe = newExcelPage.frameLocator('#WacFrame_Excel_0');
+    const iframe = newExcelPage.frameLocator("#WacFrame_Excel_0");
 
     await isElementVisible(
       iframe,
@@ -63,7 +63,7 @@ export class ExcelPage {
       cellName,
       DEFAULT_TIMEOUT,
     );
-    await iframe.locator(this.excelLocators.cellInputSelector).press('Enter');
+    await iframe.locator(this.excelLocators.cellInputSelector).press("Enter");
     await clickElement(
       iframe,
       this.excelLocators.formulaInputSelector,
@@ -77,11 +77,11 @@ export class ExcelPage {
     );
     await iframe
       .locator(this.excelLocators.formulaInputSelector)
-      .press('Control+Enter');
+      .press("Control+Enter");
   }
 
   async dismissNotification(newExcelPage: Page): Promise<void> {
-    const iframe = newExcelPage.frameLocator('#WacFrame_Excel_0');
+    const iframe = newExcelPage.frameLocator("#WacFrame_Excel_0");
     await newExcelPage.waitForTimeout(2000);
     const closeButton = iframe.locator('button.ms-Button[aria-label="Close"]');
     await closeButton.first().click();
@@ -92,17 +92,17 @@ export class ExcelPage {
     cellName: string,
   ): Promise<string> {
     const DEFAULT_TIMEOUT = 10000;
-    const iframe = newExcelPage.frameLocator('#WacFrame_Excel_0');
+    const iframe = newExcelPage.frameLocator("#WacFrame_Excel_0");
     const fontSizeInput = iframe.locator(this.excelLocators.autoFontSize);
-    await fontSizeInput.waitFor({ state: 'visible' });
-    await fontSizeInput.fill('8');
-    await fontSizeInput.press('Enter');
+    await fontSizeInput.waitFor({ state: "visible" });
+    await fontSizeInput.fill("8");
+    await fontSizeInput.press("Enter");
     const element = await iframe
       .locator(`label[aria-label*="${cellName}"]`)
       .nth(0);
-    const ariaLabel = await element.getAttribute('aria-label');
+    const ariaLabel = await element.getAttribute("aria-label");
     if (ariaLabel) {
-      const cellData = ariaLabel.split(' . ')[0];
+      const cellData = ariaLabel.split(" . ")[0];
       return cellData;
     }
     throw new Error(`Unable to retrieve data for cell ${cellName}`);

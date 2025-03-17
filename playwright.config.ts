@@ -10,8 +10,6 @@ if (fs.existsSync(envFile)) {
 }
 
 const baseURL: string = process.env.BASE_URL || 'https://office.live.com/';
-const browserName: any = process.env.BROWSER_NAME || 'chromium';
-const headless: boolean = process.env.HEADLESS === 'true';
 
 export default defineConfig({
   testDir: './src/tests',
@@ -21,8 +19,6 @@ export default defineConfig({
   ],
   use: {
     baseURL,
-    browserName,
-    headless: true,
     video: 'retain-on-failure',
     screenshot: 'only-on-failure',
     permissions: ["clipboard-read"],
@@ -31,9 +27,19 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'Chrome',
+      name: 'Chromium Headless',
       use: {
-        ...devices['Desktop Chrome']
+        ...devices['Desktop Chrome'],
+        browserName: 'chromium',
+        headless: true
+      }
+    },
+    {
+      name: 'Chromium',
+      use: {
+        ...devices['Desktop Chrome'],
+        browserName: 'chromium',
+        headless: false
       }
     }
   ]

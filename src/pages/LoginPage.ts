@@ -1,10 +1,10 @@
-import { Page } from '@playwright/test';
+import { Page } from "@playwright/test";
 import {
   clickElement,
   fillField,
   isElementVisible,
   hasPageLoaded,
-} from '../utils/helper';
+} from "../utils/helper";
 
 export class LoginPage {
   constructor(private page: Page) {}
@@ -15,11 +15,11 @@ export class LoginPage {
     passwordInput: 'input[type="password"]',
     userNameSubmitBtn: 'input[type="submit"]',
     passSubmitBtn: 'button[type="submit"]',
-    staySignInModal: '#kmsiTitle',
+    staySignInModal: "#kmsiTitle",
     textButtonContainer: '[data-testid="textButtonContainer"]',
-    acceptButton: '#acceptButton',
+    acceptButton: "#acceptButton",
     emailScreenHeader: 'div#loginHeader:has-text("Sign in")',
-    userDisplayName: 'div#userDisplayName',
+    userDisplayName: "div#userDisplayName",
     passwordScreenHeader: 'div#loginHeader:has-text("Enter password")',
   };
 
@@ -39,7 +39,7 @@ export class LoginPage {
     if (
       !(await isElementVisible(this.page, this.loginLocators.emailScreenHeader))
     ) {
-      throw new Error('Email screen did not load correctly');
+      throw new Error("Email screen did not load correctly");
     }
 
     // Fill in the username/email field
@@ -73,7 +73,7 @@ export class LoginPage {
         this.loginLocators.passwordScreenHeader,
       ))
     ) {
-      throw new Error('Password screen did not load correctly');
+      throw new Error("Password screen did not load correctly");
     }
 
     // Fill in the password field
@@ -97,7 +97,7 @@ export class LoginPage {
     );
     if (await isElementVisible(this.page, this.loginLocators.staySignInModal)) {
       const titleText = await staySignInModal.textContent();
-      if (titleText?.trim() === 'Stay signed in?') {
+      if (titleText?.trim() === "Stay signed in?") {
         const acceptButton = this.page.locator(
           `${this.loginLocators.textButtonContainer} >> ${this.loginLocators.acceptButton}`,
         );
@@ -125,7 +125,7 @@ export class LoginPage {
 
     // Verify the page has fully loaded after login, if specified
     if (options.checkPageLoaded && !(await hasPageLoaded(this.page))) {
-      throw new Error('Page did not load correctly after login');
+      throw new Error("Page did not load correctly after login");
     }
   }
 }

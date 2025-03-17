@@ -5,11 +5,11 @@ import {
   Browser,
   BrowserContext,
   Page,
-} from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
-import { ExcelPage } from '../pages/ExcelPage';
-import config from '../config/config.json';
-import dotenv from 'dotenv';
+} from "@playwright/test";
+import { LoginPage } from "../pages/LoginPage";
+import { ExcelPage } from "../pages/ExcelPage";
+import config from "../config/config.json";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -28,7 +28,7 @@ const username = process.env.EXCEL_USERNAME;
 const password = process.env.EXCEL_PASSWORD;
 if (!username || !password) {
   throw new Error(
-    'Username or password is not defined. Please check your configuration and environment variables.',
+    "Username or password is not defined. Please check your configuration and environment variables.",
   );
 }
 
@@ -41,7 +41,7 @@ test.beforeAll(async () => {
 
   page.setDefaultTimeout(10000);
 
-  const excelUrlPath = '/start/Excel.aspx';
+  const excelUrlPath = "/start/Excel.aspx";
 
   await page.goto(excelUrlPath);
   await loginPage.login(username, password);
@@ -52,12 +52,12 @@ test.afterAll(async () => {
   await browser.close();
 });
 
-test('Test-01 Validate the today function in Excel', async () => {
+test("Test-01 Validate the today function in Excel", async () => {
   const today = new Date();
-  await excelPage.enterFormulaInCell(newExcelPage, 'A1', '=TODAY()');
+  await excelPage.enterFormulaInCell(newExcelPage, "A1", "=TODAY()");
   await excelPage.dismissNotification(newExcelPage);
 
   const expectedDate = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
 
-  await excelPage.verifyCellData(newExcelPage, 'A1', expectedDate);
+  await excelPage.verifyCellData(newExcelPage, "A1", expectedDate);
 });

@@ -1,5 +1,5 @@
-import { Page, Locator, FrameLocator, expect } from '@playwright/test';
-import { ExcelPage } from '../pages/ExcelPage';
+import { Page, Locator, FrameLocator, expect } from "@playwright/test";
+import { ExcelPage } from "../pages/ExcelPage";
 
 /**
  * Waits for an element to become visible within the given timeout.
@@ -14,7 +14,7 @@ export async function waitForElementVisible(
   timeout: number = 60000,
 ): Promise<boolean> {
   try {
-    await object.locator(locator).waitFor({ state: 'visible', timeout });
+    await object.locator(locator).waitFor({ state: "visible", timeout });
     return true;
   } catch {
     return false;
@@ -34,9 +34,9 @@ export async function isElementVisible(
   timeout: number = 2000,
 ): Promise<boolean> {
   const resolvedLocator =
-    typeof locator === 'string' ? object.locator(locator) : locator;
+    typeof locator === "string" ? object.locator(locator) : locator;
   try {
-    await resolvedLocator.waitFor({ state: 'visible', timeout });
+    await resolvedLocator.waitFor({ state: "visible", timeout });
     return true;
   } catch {
     return false;
@@ -58,15 +58,15 @@ export async function clickElement(
   keyCombination?: string | string[],
 ): Promise<void> {
   const resolvedLocator =
-    typeof locator === 'string' ? object.locator(locator) : locator;
+    typeof locator === "string" ? object.locator(locator) : locator;
 
   // Ensure the element is visible before clicking
   await isElementVisible(object, resolvedLocator, timeout);
 
-  if ('click' in resolvedLocator) {
+  if ("click" in resolvedLocator) {
     await resolvedLocator.click();
 
-    if (keyCombination && 'keyboard' in object) {
+    if (keyCombination && "keyboard" in object) {
       const page = object as Page;
       if (Array.isArray(keyCombination)) {
         for (const key of keyCombination) {
@@ -77,7 +77,7 @@ export async function clickElement(
       }
     }
   } else {
-    throw new Error('Unsupported object type for clickElement');
+    throw new Error("Unsupported object type for clickElement");
   }
 }
 
@@ -87,7 +87,7 @@ export async function clickElement(
  * @returns True if the object is a Locator, false otherwise.
  */
 function isLocator(object: any): object is Locator {
-  return 'click' in object && !('locator' in object);
+  return "click" in object && !("locator" in object);
 }
 
 /**
@@ -104,7 +104,7 @@ export async function fillField(
   timeout: number = 2000,
 ): Promise<void> {
   const resolvedLocator =
-    typeof locatorOrResolvedLocator === 'string'
+    typeof locatorOrResolvedLocator === "string"
       ? object.locator(locatorOrResolvedLocator)
       : locatorOrResolvedLocator;
 
@@ -123,7 +123,7 @@ export async function hasPageLoaded(
   timeout: number = 60000,
 ): Promise<boolean> {
   try {
-    await object.waitForLoadState('load', { timeout });
+    await object.waitForLoadState("load", { timeout });
     return true;
   } catch {
     return false;
@@ -140,12 +140,12 @@ export async function typeText(
 
   let resolvedLocator: Locator;
 
-  if ('locator' in object) {
+  if ("locator" in object) {
     resolvedLocator = object.locator(locator);
-  } else if ('press' in object) {
+  } else if ("press" in object) {
     resolvedLocator = object as Locator;
   } else {
-    throw new Error('Unsupported object type for typeText');
+    throw new Error("Unsupported object type for typeText");
   }
 
   try {

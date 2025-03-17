@@ -7,8 +7,8 @@
     "format:check": "prettier --check \"src/**/*.{js,ts,json,css,md}\"",
     "test:headed": "npx playwright test --headed",
     "test:ui": "npx playwright test --ui",
-    "test:qa": "ENV=qa npx playwright test",
-    "test:qa:headed": "xvfb-run --auto-servernum --server-args=\"-screen 0 1280x720x24\" ENV=qa npx playwright test"
+    "test:qa": "ENV=qa npx playwright test --project='Chromium'",
+    "test:qa-ci": "ENV=qa npx playwright test --project='Chromium Headless'"
   },
   "keywords": [],
   "author": "",
