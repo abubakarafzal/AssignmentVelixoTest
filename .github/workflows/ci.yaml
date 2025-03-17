@@ -5,10 +5,10 @@ name: Playwright Github Actions
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 # Define the jobs to run in this workflow
 jobs:
